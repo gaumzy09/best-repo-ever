@@ -14,7 +14,7 @@ public class VisionController {
         // jwt.cert = 'JWTCert'; // Uncomment this if you used a Salesforce certificate to sign up for an Einstein Platform account
         jwt.pkcs8 = keyContents; // Comment this if you are using jwt.cert
         jwt.iss = 'developer.force.com';
-        jwt.sub = 'gaumzy09@gmail.com';
+        jwt.sub = 'yourname@example.com';
         jwt.aud = 'https://api.einstein.ai/v2/oauth2/token';
         jwt.exp = '3600';
         String access_token = JWTBearerFlow.getAccessToken('https://api.einstein.ai/v2/oauth2/token', jwt);
@@ -39,27 +39,3 @@ public class VisionController {
         return Vision.predictBlob(content.VersionData, access_token, 'GeneralImageClassifier');
     }
 }
-```
-
-```xml
-<apex:page Controller="VisionController">
-  <apex:form >
-  <apex:pageBlock >
-      <apex:image url="https://einstein.ai/images/generalimage.jpg">
-      </apex:image>
-      <br/>
-      <apex:repeat value="{!AccessToken}" var="accessToken">
-          Access Token:<apex:outputText value="{!accessToken}" /><br/>
-    </apex:repeat>
-      <br/>
-      <apex:repeat value="{!callVisionUrl}" var="prediction">
-          <apex:outputText value="{!prediction.label}" />:<apex:outputText value="{!prediction.probability}" /><br/>
-      </apex:repeat>
-  </apex:pageBlock>
-<!--  <apex:pageBlock > -->
-<!--      <apex:repeat value="{!callVisionContent}" var="prediction"> -->
-<!--          <apex:outputText value="{!prediction.label}" />:<apex:outputText value="{!prediction.probability}" /><br/> -->
-<!--    </apex:repeat> -->
-<!--  </apex:pageBlock> -->
-  </apex:form>
-</apex:page>
